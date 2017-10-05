@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/product
+    username: root
+    password:
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    database: 3
+    host: localhost
+    port: 6379
+    password:
+    timeout: 0
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有作用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: 1
+
+
+mybatis:
+  # 配置映射类所在包名
+  type-aliases-package: com.learn.springbootdemo.dao.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations:
+    - mappers/ProductMapper.xml
+
+server:
+  port: 9999
+  address: 127.0.0.1
+  tomcat:
+    accessLogEnabled: false
+
+logging:
+  level:
+    com.learn.springbootdemon: debug
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    schema: classpath:schema.sql
+    data: classpath:data.sql
